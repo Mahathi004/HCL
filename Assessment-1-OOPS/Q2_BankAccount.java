@@ -1,41 +1,42 @@
 import java.util.Scanner;
-// Abstract base class
-abstract class Employee {
-private int employeeId;
-private String employeeName;
-public Employee(int employeeId, String employeeName) {
-this.employeeId = employeeId;
-this.employeeName = employeeName;
+// Base class
+class BankAccount {
+int accountNumber;
+double balance;
+public BankAccount(int accountNumber, double balance) {
+this.accountNumber = accountNumber;
+this.balance = balance;
 }
-public int getEmployeeId() {
-return employeeId;
+public double calculateFinalBalance() {
+return balance;
 }
-public String getEmployeeName() {
-return employeeName;
-}
-// Abstract method to be overridden by child classes
-public abstract double calculateSalary();
 }
 // Derived class 1
-class FullTimeEmployee extends Employee {
-double monthlySalary;
-public FullTimeEmployee(int employeeId, String employeeName, double
-monthlySalary) {
-super(employeeId, employeeName); // Call parent constructor
-this.monthlySalary = monthlySalary;
+class SavingsAccount extends BankAccount {
+double interestRate;
+public SavingsAccount(int accountNumber, double balance, double interestRate)
+{
+super(accountNumber, balance);
+this.interestRate = interestRate;
 }
 @Override
-public double calculateSalary() {
-return monthlySalary;
+public double calculateFinalBalance() {
+return balance + (balance * interestRate / 100);
 }
 }
 // Derived class 2
-class ContractEmployee extends Employee {
-int workingDays;
-double dailyRate;
-public ContractEmployee(int employeeId, String employeeName, int workingDays,
-double dailyRate) {
-super(employeeId, employeeName); // Call parent constructor
-this.workingDays = workingDays;
-this.dailyRate = dailyRate;
+class CurrentAccount extends BankAccount {
+double overdraftLimit;
+public CurrentAccount(int accountNumber, double balance, double
+overdraftLimit) {
+super(accountNumber, balance);
+this.overdraftLimit = overdraftLimit;
 }
+@Override
+public double calculateFinalBalance() {
+return balance + overdraftLimit;
+}
+}
+public class BankingAccountManagement {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
